@@ -4,6 +4,7 @@ from app import db
 from app.routes.routes_helper import *
 from app.models.game import Game
 from app.models.guess import Guess
+from app.models.user import User
 
 game_bp = Blueprint('game_bp', __name__, url_prefix='/game')
 
