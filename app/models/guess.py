@@ -7,7 +7,7 @@ class Guess(db.Model):
     guess_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     guess = db.Column(db.String(10), nullable=False)
     game_id = db.Column(db.Integer,db.ForeignKey('game.game_id'), nullable=False)
-    game = db.relationship('Game', back_populates='guesses')
+    game = db.relationship("Game", back_populates="guesses")
     created_at = db.Column(db.DateTime, default=datetime.now, nullable=False)
     corr_num = db.Column(db.Integer, nullable=False)
     corr_loc = db.Column(db.Integer, nullable=False)

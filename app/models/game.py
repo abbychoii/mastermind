@@ -10,9 +10,8 @@ class Game(db.Model):
     num_max = db.Column(db.Integer, default=7, nullable=False)
     # don't need to store the length because the num_combo will be of the correct length, but the range might not be fully reflected in the num_combo (so need to store the range)
     num_combo = db.Column(db.String(10), nullable=False)
-    guesses = db.relationship('Guess', back_populates='game', lazy=True)
+    guesses = db.relationship("Guess", back_populates="game", lazy=True)
     guesses_allowed = db.Column(db.Integer, nullable=False, default=10)# can be empty - if empty then game is still in progress
-    # time_elapsed = db.Column(db.Integer, nullable=False, default=0)
     date_created = db.Column(db.DateTime, nullable=False, default=db.func.current_timestamp())
     game_won = db.Column(db.Boolean, default=False)
 

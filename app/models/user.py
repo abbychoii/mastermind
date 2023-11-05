@@ -7,7 +7,7 @@ class User(db.Model):
     user_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     username = db.Column(db.String(15), unique=True, nullable=False)
     password = db.Column(db.String(20), nullable=False)
-    games = db.relationship('Game', backref='user', lazy=True)
+    games = db.relationship("Game", backref="user", lazy=True)
     
     #not returning the password
     def to_dict(self):
