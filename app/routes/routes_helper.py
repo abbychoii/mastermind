@@ -105,7 +105,7 @@ def validate_guess(guess, game):
     except:
         abort(make_response({'message': f'Guess {guess_str} invalid. Guess must be an integer.'}, 400))
     
-    if len(guess) != len(game_dict['num_combo']):
+    if len(guess_str) != len(game_dict['num_combo']):
         abort(make_response({'message': f'Guess {guess_str} invalid. Guess must be {len(game_dict["num_combo"])} digits long.'}, 400))
     elif len(game_dict['guesses']) == game_dict['guesses_allowed']:
         abort(make_response({'message': f'Guess {guess_str} invalid. No more guesses allowed for this game.'}, 400))
