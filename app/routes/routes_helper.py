@@ -61,7 +61,7 @@ def validate_game_request(request):
     if 'guesses_allowed' in request:
         try:
             guesses_allowed = int(request['guesses_allowed'])
-            if guesses_allowed >= 20:
+            if guesses_allowed >= 20 or guesses_allowed < 2:
                 raise ValueError
         except ValueError:
             abort(make_response({'message': 'guesses_allowed must be an integer between 2 and 20, inclusive.'}, 400))

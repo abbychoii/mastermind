@@ -9,17 +9,21 @@ db = SQLAlchemy()
 migrate = Migrate()
 load_dotenv()
 
-def create_app():
+def create_app(testing=None):
     app = Flask(__name__)
     
 
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    
-    uri = os.environ.get('SQLALCHEMY_DATABASE_URI')
-    if uri.startswith("postgres://"):
-        uri = uri.replace("postgres://", "postgresql://", 1)
+    if testing is None:
+        uri = os.environ.get('SQLALCHEMY_DATABASE_URI')
+        if uri.startswith("postgres://"):
+            uri = uri.replace("postgres://", "postgresql://", 1)
+        app.config['SQLALCHEMY_DATABASE_URI'] = uri
+    else:
+        app.config["TESTING"] = True
+        app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('SQLALCHEMY_TEST_DATABASE_URI')
 
-    app.config['SQLALCHEMY_DATABASE_URI'] = uri
+    
 
     #establish models 
     #import pattern for models

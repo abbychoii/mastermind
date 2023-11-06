@@ -42,6 +42,8 @@ Apply migrations to database: <br>
 Navigate to project folder (mastermind) <br>
 `flask run`
 
+### Tests
+Tests can be run using the command `pytest tests/test_routes.py` from the mastermind folder. 
 
 ## Project Direction 
 ### MVP
