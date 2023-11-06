@@ -109,12 +109,12 @@ def validate_guess(guess, game):
         abort(make_response({'message': f'Guess {guess_str} invalid. Guess must be {len(game_dict["num_combo"])} digits long.'}, 400))
     elif len(game_dict['guesses']) == game_dict['guesses_allowed']:
         abort(make_response({'message': f'Guess {guess_str} invalid. No more guesses allowed for this game.'}, 400))
-    for num in guess: 
+    for num in guess_str: 
         if int(num) not in range(game_dict['num_min'], game_dict['num_max']+1):
             abort(make_response({'message': f'Guess {guess_str} invalid. Each digit in the guess must be between {game_dict["num_min"]} and {game_dict["num_max"]}, inclusive.'}, 400))
     
     guesses = game.guesses_for_game()
-    if guess in [guess['guess'] for guess in guesses]:
+    if guess_str in [guess['guess'] for guess in guesses]:
         abort(make_response({'message': f'Guess {guess_str} invalid. Guess has already been made for this game.'}, 400))
 
     return {'guess': guess_str, 'game_dict': game_dict}
