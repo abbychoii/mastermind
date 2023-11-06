@@ -99,25 +99,25 @@ def generate_number_combo(request):
 
 def validate_guess(guess, game):
     game_dict = game.to_dict()
-    
+    guess_str = guess
     try: 
-        guess = str(int(guess))
+        guess = int(guess)
     except:
-        abort(make_response({'message': f'Guess {guess} invalid. Guess must be an integer.'}, 400))
+        abort(make_response({'message': f'Guess {guess_str} invalid. Guess must be an integer.'}, 400))
     
     if len(guess) != len(game_dict['num_combo']):
-        abort(make_response({'message': f'Guess {guess} invalid. Guess must be {len(game_dict["num_combo"])} digits long.'}, 400))
+        abort(make_response({'message': f'Guess {guess_str} invalid. Guess must be {len(game_dict["num_combo"])} digits long.'}, 400))
     elif len(game_dict['guesses']) == game_dict['guesses_allowed']:
-        abort(make_response({'message': f'Guess {guess} invalid. No more guesses allowed for this game.'}, 400))
+        abort(make_response({'message': f'Guess {guess_str} invalid. No more guesses allowed for this game.'}, 400))
     for num in guess: 
         if int(num) not in range(game_dict['num_min'], game_dict['num_max']+1):
-            abort(make_response({'message': f'Guess {guess} invalid. Each digit in the guess must be between {game_dict["num_min"]} and {game_dict["num_max"]}, inclusive.'}, 400))
+            abort(make_response({'message': f'Guess {guess_str} invalid. Each digit in the guess must be between {game_dict["num_min"]} and {game_dict["num_max"]}, inclusive.'}, 400))
     
     guesses = game.guesses_for_game()
     if guess in [guess['guess'] for guess in guesses]:
-        abort(make_response({'message': f'Guess {guess} invalid. Guess has already been made for this game.'}, 400))
+        abort(make_response({'message': f'Guess {guess_str} invalid. Guess has already been made for this game.'}, 400))
 
-    return {'guess': guess.strip(), 'game_dict': game_dict}
+    return {'guess': guess_str, 'game_dict': game_dict}
 
 def calculate_guess_feedback(game_info):
     num_combo = game_info['game_dict']['num_combo']
